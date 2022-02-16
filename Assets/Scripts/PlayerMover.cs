@@ -9,7 +9,6 @@ public class PlayerMover : MonoBehaviour
     [SerializeField] float jumpForce = 60;
     [SerializeField] bool isJumping = false;
     [SerializeField] bool grounded = true;
-    [SerializeField] float gravityScale = 1.0f;
     [SerializeField] float moveHoriz = 0;
     [SerializeField] float moveVert = 0;
 
@@ -17,12 +16,10 @@ public class PlayerMover : MonoBehaviour
 
     public bool isFacingRight = true;
 
-    public static float globalGravity = -9.81f;
 
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
-        _rb.useGravity = false;
     }
 
     private void Update()
@@ -36,9 +33,7 @@ public class PlayerMover : MonoBehaviour
         //using a boxcollide if the player is on the ground
         grounded = Physics.OverlapBox(BoxCastCenter.position, new Vector3(.45f, .02f, .5f), Quaternion.identity).Any(Collider => Collider.tag == "Ground");
 
-        //Custom gravity
-        Vector3 gravity = globalGravity * gravityScale * Vector3.up;
-        _rb.AddForce(gravity, ForceMode.Acceleration);
+        
 
 
         //set velocity movement

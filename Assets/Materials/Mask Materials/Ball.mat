@@ -33,7 +33,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - Vector1_d036bcce07544260953a5844948dc62c: 6.35
-    - _SphereRad: 1545.4863
+    - _SphereRad: 3090.9727
     m_Colors:
     - Color_a2f070c726d24ad79e4bf5b33b847dfc: {r: 0.03529412, g: 0.5882353, b: 0.80392164, a: 0}
     - Vector3_41671593f4e34d6791c0a074647a51ab: {r: 0, g: 15, b: 0, a: 0}
