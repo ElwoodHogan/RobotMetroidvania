@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Door
+  m_Name: Background
   m_Shader: {fileID: -6465566751694194690, guid: f064b72e805f3f343baa9826605713d1, type: 3}
   m_ShaderKeywords: CLIP_ONE
   m_LightmapFlags: 4
@@ -42,10 +42,10 @@ Material:
     - Vector1_d036bcce07544260953a5844948dc62c: 6.35
     - _SphereRad: 3090.9727
     m_Colors:
-    - Color_a2f070c726d24ad79e4bf5b33b847dfc: {r: 0.9686275, g: 0.9686275, b: 0.9686275, a: 0}
+    - Color_a2f070c726d24ad79e4bf5b33b847dfc: {r: 0, g: 0, b: 0, a: 1}
     - Vector3_41671593f4e34d6791c0a074647a51ab: {r: 0, g: 15, b: 0, a: 0}
     - Vector3_d0354561fb8b47ffb53379a018db15f5: {r: 1, g: 1, b: 1, a: 0}
     - _Dimensional: {r: 1, g: 1, b: 0, a: 0}
-    - _MainColor: {r: 0.5231867, g: 0, b: 1, a: 0}
+    - _MainColor: {r: 0.36792448, g: 0.36792448, b: 0.36792448, a: 0}
     - _SpherePos: {r: -21.335316, g: 2.0001342, b: 0, a: 0}
   m_BuildTextureStacks: []

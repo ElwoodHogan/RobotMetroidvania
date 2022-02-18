@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Sirenix.OdinInspector;
 
 public class TriggerParent : MonoBehaviour
 {
@@ -20,5 +21,11 @@ public class TriggerParent : MonoBehaviour
         {
             activatable.Activate(set);
         }
+    }
+
+    [Button]
+    private void ManualTrigger()
+    {
+        Trigger();
     }
 }

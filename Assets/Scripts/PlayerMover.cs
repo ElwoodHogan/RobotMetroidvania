@@ -13,8 +13,11 @@ public class PlayerMover : MonoBehaviour
     [SerializeField] float moveVert = 0;
 
     [SerializeField] Transform BoxCastCenter;
+    [SerializeField] Vector3 GroundBoxcastSize = new Vector3(.45f, .01f, .5f);
 
     public bool isFacingRight = true;
+
+    public float highestHeight = 0;
 
 
     private void Awake()
@@ -30,8 +33,10 @@ public class PlayerMover : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (highestHeight < transform.position.y) highestHeight = transform.position.y;
+
         //using a boxcollide if the player is on the ground
-        grounded = Physics.OverlapBox(BoxCastCenter.position, new Vector3(.45f, .02f, .5f), Quaternion.identity).Any(Collider => Collider.tag == "Ground");
+        grounded = Physics.OverlapBox(BoxCastCenter.position, GroundBoxcastSize, Quaternion.identity).Any(Collider => Collider.tag == "Ground");
 
         
 
@@ -45,9 +50,10 @@ public class PlayerMover : MonoBehaviour
         else
             _rb.velocity = new Vector2(0, _rb.velocity.y);
 
-        if ((moveVert < -.1 || moveVert > .1) && grounded)
+        if (moveVert > .1 && grounded)
         {
             _rb.velocity = new Vector2(_rb.velocity.x, jumpForce);
+            //_rb.AddForce(new Vector2(0, jumpForce), ForceMode.Impulse);
         }
 
     }
@@ -56,7 +62,7 @@ public class PlayerMover : MonoBehaviour
     {
         Gizmos.color = Color.red;
 
-        Gizmos.DrawWireCube(BoxCastCenter.position, new Vector3(.45f, .02f, .5f) * 2);
+        Gizmos.DrawWireCube(BoxCastCenter.position, GroundBoxcastSize * 2);
     }
 
 }

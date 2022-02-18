@@ -13,9 +13,8 @@ public class PlayerComponentSlinger : MonoBehaviour
 
     [SerializeField] float returnPercent;
     [SerializeField] Vector3 startPoint;
-    [SerializeField] Transform MaskSphere;
-    [SerializeField] float MaskSphereActiveSize = 20;
-    float outscaleTime = .8f;
+    
+    float cooldownTime = .9f;
     bool onCooldown = false;
 
     private void Update()
@@ -24,9 +23,7 @@ public class PlayerComponentSlinger : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            //sets a short cooldown to preven scaling bug
-            onCooldown = true;
-            Timer.SimpleTimer(() => onCooldown = false, outscaleTime + .2f);
+            
 
             //setting some variables
             PlayerMover PMover = FM.Player.GetComponent<PlayerMover>();
@@ -35,6 +32,7 @@ public class PlayerComponentSlinger : MonoBehaviour
             if (SlungComponent.isAttachedToPlayer)
             {
                 //======================THIS IS THE START OF THE SLING
+
                 SlungComponent.SetKinematic(false).AddForce(new Vector3(
                     Mathf.Cos(Mathf.Deg2Rad * _LaunchAngle) * (_LaunchForce * (PMover.isFacingRight ? 1 : -1)),
                     Mathf.Sin(Mathf.Deg2Rad * _LaunchAngle) * _LaunchForce,
@@ -42,13 +40,17 @@ public class PlayerComponentSlinger : MonoBehaviour
                     + PMover.GetComponent<Rigidbody>().velocity,
                     ForceMode.Impulse);
                 SlungComponent.GetComponent<Collider>().isTrigger = false;
-                SlungComponent.isAttachedToPlayer = false;
+                SlungComponent.SetAttachedToPlayer(false);
 
-                MaskSphere.DOScale(MaskSphereActiveSize, .4f).SetEase(Ease.OutQuad);
             }
             else if (!returning)
             {
                 //======================THIS IS THE START OF THE RETURN
+
+                //sets a short cooldown to preven scaling bug
+                onCooldown = true;
+                Timer.SimpleTimer(() => onCooldown = false, cooldownTime);
+
                 SlungComponent.GetComponent<Collider>().isTrigger = true;
                 SlungComponent.GetComponent<TrailRenderer>().enabled = true;
                 returning = true;
@@ -62,11 +64,10 @@ public class PlayerComponentSlinger : MonoBehaviour
                 }, 1, _ReturnSpeed).OnComplete(() =>
                 {
                     SlungComponent.GetComponent<TrailRenderer>().enabled = false;
-                    SlungComponent.isAttachedToPlayer = true;
+                    SlungComponent.SetAttachedToPlayer(true);
                     returning = false;
                     SlungComponent.SetKinematic(true);
 
-                    MaskSphere.DOScale(150, outscaleTime).SetEase(Ease.InQuad);
                 });
 
 

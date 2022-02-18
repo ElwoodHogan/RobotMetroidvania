@@ -5,25 +5,21 @@ using DG.Tweening;
 
 public class Door : ActivatableParent
 {
-    bool open = false;
-
     [SerializeField] Transform openTo;
     [SerializeField] Vector3 closeTo;
 
     private void Awake()
     {
-        if (!open) closeTo = transform.position;
-    }
-    public override void Activate()
-    {
-        if (open) transform.DOMove(closeTo, 2);
-        else transform.DOMove(openTo.position, 2);
-        open = !open;
+        if (!isActive) closeTo = transform.position;
     }
 
-    public override void Activate(bool set)
+    protected override void OnDeactivate()
     {
-        if (open) transform.DOMove(closeTo, 2);
-        else transform.DOMove(openTo.position, 2);
+        transform.DOMove(closeTo, 2);
+    }
+
+    protected override void OnActivate()
+    {
+        transform.DOMove(openTo.position, 2);
     }
 }
