@@ -56,6 +56,14 @@ public class PlayerMover : MonoBehaviour
             //_rb.AddForce(new Vector2(0, jumpForce), ForceMode.Impulse);
         }
 
+        if(moveVert < -.1)
+        {
+            RaycastHit hit;
+            OneWayPlatform platform = null;
+            if(Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, 11f)) hit.collider.TryGetComponent<OneWayPlatform>(out platform);
+            if(platform) Physics.IgnoreCollision(platform.PlatformCollider, GetComponent<Collider>(), true);
+        }
+
     }
 
     void OnDrawGizmos()
@@ -63,6 +71,8 @@ public class PlayerMover : MonoBehaviour
         Gizmos.color = Color.red;
 
         Gizmos.DrawWireCube(BoxCastCenter.position, GroundBoxcastSize * 2);
+        Gizmos.color = Color.blue;
+        Gizmos.DrawLine(BoxCastCenter.position, BoxCastCenter.position + (Vector3.down * .1f));
     }
 
 }

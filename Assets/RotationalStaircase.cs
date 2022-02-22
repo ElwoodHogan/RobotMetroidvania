@@ -12,7 +12,6 @@ public class RotationalStaircase : ActivatableParent
     [SerializeField] float stairDelay = 1;
     protected override void OnActivate()
     {
-        print("activated");
         for (int i = 0; i < stairs.Count; i++)
         {
             stairs[i].DOLocalRotate(OpenedRotation, ((float)i* stairDelay) + firstStairTime);

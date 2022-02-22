@@ -4,7 +4,7 @@ using UnityEngine;
 public class FrontMan : MonoBehaviour
 {
 
-    public Camera Main;
+    public Camera MainCam;
 
     public GameObject Player;
 

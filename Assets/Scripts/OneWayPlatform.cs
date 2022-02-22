@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class OneWayPlatform : MonoBehaviour
 {
-    [SerializeField] Collider PlatformCollider;
+    public Collider PlatformCollider;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.tag == "Player" || other.tag == "RobotComponent")
         {
             Physics.IgnoreCollision(PlatformCollider, other.GetComponent<Collider>(), true);
         }
@@ -14,7 +14,7 @@ public class OneWayPlatform : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag == "Player") Physics.IgnoreCollision(PlatformCollider, other.GetComponent<Collider>(), false);
+        if (other.tag == "Player" || other.tag == "RobotComponent") Physics.IgnoreCollision(PlatformCollider, other.GetComponent<Collider>(), false);
     }
 
 

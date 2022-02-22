@@ -12,9 +12,9 @@ public class CameraMoveTrigger : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            if (cameraDestination) FM.Main.transform.DOMove(cameraDestination.position.SetZ(-20), 1);
-            else FM.Main.transform.DOMove(transform.position.SetZ(-20), 1);
-            DOTween.To(() => FM.Main.orthographicSize, (x) => FM.Main.orthographicSize = x, BASE_SIZE * ScaleTo, 1);
+            if (cameraDestination) FM.MainCam.transform.DOMove(cameraDestination.position.SetZ(-20), 1);
+            else FM.MainCam.transform.DOMove(transform.position.SetZ(-20), 1);
+            DOTween.To(() => FM.MainCam.orthographicSize, (x) => FM.MainCam.orthographicSize = x, BASE_SIZE * ScaleTo, 1);
         }
     }
 

@@ -6,7 +6,9 @@ using DG.Tweening;
 public class Door : ActivatableParent
 {
     [SerializeField] Transform openTo;
+    [SerializeField] float openToFloat;
     [SerializeField] Vector3 closeTo;
+    [SerializeField] float openCloseTime;
 
     private void Awake()
     {
@@ -15,11 +17,12 @@ public class Door : ActivatableParent
 
     protected override void OnDeactivate()
     {
-        transform.DOMove(closeTo, 2);
+        transform.DOMoveY(closeTo.y, openCloseTime);
     }
 
     protected override void OnActivate()
     {
-        transform.DOMove(openTo.position, 2);
+        if(openTo)   transform.DOMoveY(openTo.position.y, openCloseTime);
+        else transform.DOMoveY(openToFloat, openCloseTime);
     }
 }

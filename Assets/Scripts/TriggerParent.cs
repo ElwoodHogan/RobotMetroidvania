@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 using Sirenix.OdinInspector;
 
 public class TriggerParent : MonoBehaviour
 {
     [SerializeField] List<ActivatableParent> ObjectsToActivate = new List<ActivatableParent>();
+    public Action OnTrigger;
 
     public void Trigger()
     {
@@ -13,6 +15,7 @@ public class TriggerParent : MonoBehaviour
         {
             activatable.Activate();
         }
+        OnTrigger?.Invoke();
     }
 
     public void Trigger(bool set)
@@ -21,6 +24,7 @@ public class TriggerParent : MonoBehaviour
         {
             activatable.Activate(set);
         }
+        OnTrigger?.Invoke();
     }
 
     [Button]

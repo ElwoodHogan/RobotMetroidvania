@@ -13,12 +13,19 @@ public class PlayerComponentSlinger : MonoBehaviour
 
     [SerializeField] float returnPercent;
     [SerializeField] Vector3 startPoint;
+
+    [SerializeField] Transform crosshair;
     
     float cooldownTime = .9f;
     bool onCooldown = false;
 
     private void Update()
     {
+        Vector3 mouseWorldPos = FM.MainCam.ScreenToWorldPoint(Input.mousePosition);
+        crosshair.position = mouseWorldPos.SetZ(-10);
+        Vector3 AimLine = Vector3.Normalize(mouseWorldPos.SetZ(0) - transform.position);
+
+
         if (onCooldown) return;
 
         if (Input.GetKeyDown(KeyCode.Space))
@@ -33,10 +40,15 @@ public class PlayerComponentSlinger : MonoBehaviour
             {
                 //======================THIS IS THE START OF THE SLING
 
+                /*  old component launch method
                 SlungComponent.SetKinematic(false).AddForce(new Vector3(
                     Mathf.Cos(Mathf.Deg2Rad * _LaunchAngle) * (_LaunchForce * (PMover.isFacingRight ? 1 : -1)),
                     Mathf.Sin(Mathf.Deg2Rad * _LaunchAngle) * _LaunchForce,
                     0f)
+                    + PMover.GetComponent<Rigidbody>().velocity,
+                    ForceMode.Impulse);*/
+                SlungComponent.SetKinematic(false).AddForce(
+                    (AimLine*_LaunchForce)
                     + PMover.GetComponent<Rigidbody>().velocity,
                     ForceMode.Impulse);
                 SlungComponent.GetComponent<Collider>().isTrigger = false;

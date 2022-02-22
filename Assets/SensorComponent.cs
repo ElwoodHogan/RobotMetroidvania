@@ -16,4 +16,9 @@ public class SensorComponent : RobotComponent
     {
         MaskSphere.DOScale(MaskSphereActiveSize, .3f).SetEase(Ease.OutQuad);
     }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(transform.position, MaskSphereActiveSize/2);
+    }
 }
