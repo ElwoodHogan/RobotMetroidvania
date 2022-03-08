@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using Sirenix.OdinInspector;
 
 public class FrontMan : MonoBehaviour
 {
@@ -12,6 +13,9 @@ public class FrontMan : MonoBehaviour
 
     public Action OnUpdate;
 
+    public Action<bool> OnDimensionChange;
+    public bool twoD3D;
+
     private void Awake()
     {
         FM = this;
@@ -20,6 +24,13 @@ public class FrontMan : MonoBehaviour
     private void Update()
     {
         OnUpdate?.Invoke();
+    }
+
+    [Button]
+    public void SwitchDimesnion()
+    {
+        twoD3D = !twoD3D;
+        OnDimensionChange?.Invoke(twoD3D);
     }
 
 }

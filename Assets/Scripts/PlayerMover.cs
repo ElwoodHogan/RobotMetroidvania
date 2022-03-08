@@ -4,6 +4,7 @@ using UnityEngine;
 public class PlayerMover : MonoBehaviour
 {
     Rigidbody _rb;
+    Rigidbody2D _rb2D;
 
     [SerializeField] float moveSpeed = 10;
     [SerializeField] float jumpForce = 60;
@@ -38,25 +39,26 @@ public class PlayerMover : MonoBehaviour
         //using a boxcollide if the player is on the ground
         grounded = Physics.OverlapBox(BoxCastCenter.position, GroundBoxcastSize, Quaternion.identity).Any(Collider => Collider.tag == "Ground");
 
+
+        try
+        {
+            if (FrontMan.FM.twoD3D)
+                TwoDMover();
+            else
+                ThreeDMover();
+        }
+        catch (System.Exception)
+        {
+            if (FrontMan.FM.twoD3D)
+                _rb2D = GetComponent<Rigidbody2D>();
+            else
+                _rb = GetComponent<Rigidbody>();
+        }
         
 
 
-        //set velocity movement
-        if (Mathf.Abs(moveHoriz) == 1)
-        {
-            _rb.velocity = new Vector2(moveHoriz * moveSpeed, _rb.velocity.y);
-            isFacingRight = moveHoriz == 1 ? true : false;
-        }
-        else
-            _rb.velocity = new Vector2(0, _rb.velocity.y);
 
-        if (moveVert > .1 && grounded)
-        {
-            _rb.velocity = new Vector2(_rb.velocity.x, jumpForce);
-            //_rb.AddForce(new Vector2(0, jumpForce), ForceMode.Impulse);
-        }
-
-        if(moveVert < -.1)
+        if (moveVert < -.1)
         {
             RaycastHit hit;
             OneWayPlatform platform = null;
@@ -73,6 +75,41 @@ public class PlayerMover : MonoBehaviour
         Gizmos.DrawWireCube(BoxCastCenter.position, GroundBoxcastSize * 2);
         Gizmos.color = Color.blue;
         Gizmos.DrawLine(BoxCastCenter.position, BoxCastCenter.position + (Vector3.down * .1f));
+    }
+
+    void ThreeDMover()
+    {
+        //set velocity movement
+        if (Mathf.Abs(moveHoriz) == 1)
+        {
+            _rb.velocity = new Vector2(moveHoriz * moveSpeed, _rb.velocity.y);
+            isFacingRight = moveHoriz == 1 ? true : false;
+        }
+        else
+            _rb.velocity = new Vector2(0, _rb.velocity.y);
+
+        if (moveVert > .1 && grounded)
+        {
+            _rb.velocity = new Vector2(_rb.velocity.x, jumpForce);
+            //_rb.AddForce(new Vector2(0, jumpForce), ForceMode.Impulse);
+        }
+    }
+    void TwoDMover()
+    {
+        //set velocity movement
+        if (Mathf.Abs(moveHoriz) == 1)
+        {
+            _rb2D.velocity = new Vector2(moveHoriz * moveSpeed, _rb2D.velocity.y);
+            isFacingRight = moveHoriz == 1 ? true : false;
+        }
+        else
+            _rb2D.velocity = new Vector2(0, _rb2D.velocity.y);
+
+        if (moveVert > .1 && grounded)
+        {
+            _rb2D.velocity = new Vector2(_rb2D.velocity.x, jumpForce);
+            //_rb.AddForce(new Vector2(0, jumpForce), ForceMode.Impulse);
+        }
     }
 
 }

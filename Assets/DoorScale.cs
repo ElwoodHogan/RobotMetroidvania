@@ -22,6 +22,7 @@ public class DoorScale : ActivatableParent
 
     protected override void OnDeactivate()
     {
+        //transform.DOScale(ogScale, openCloseTime);
         transform.DOScale(ogScale, openCloseTime);
         transform.DOMove(ogPos, openCloseTime);
     }
