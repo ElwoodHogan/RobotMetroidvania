@@ -39,19 +39,12 @@ public class PlayerComponentSlinger : MonoBehaviour
             if (SlungComponent.isAttachedToPlayer)
             {
                 //======================THIS IS THE START OF THE SLING
-
-                /*  old component launch method
-                SlungComponent.SetKinematic(false).AddForce(new Vector3(
-                    Mathf.Cos(Mathf.Deg2Rad * _LaunchAngle) * (_LaunchForce * (PMover.isFacingRight ? 1 : -1)),
-                    Mathf.Sin(Mathf.Deg2Rad * _LaunchAngle) * _LaunchForce,
-                    0f)
-                    + PMover.GetComponent<Rigidbody>().velocity,
-                    ForceMode.Impulse);*/
+               
                 SlungComponent.SetKinematic(false).AddForce(
                     (AimLine*_LaunchForce)
                     + PMover.GetComponent<Rigidbody>().velocity,
                     ForceMode.Impulse);
-                SlungComponent.GetComponent<Collider>().isTrigger = false;
+                Timer.SimpleTimer(() => SlungComponent.GetComponent<Collider>().isTrigger = false, .1f);
                 SlungComponent.SetAttachedToPlayer(false);
 
             }
@@ -98,3 +91,13 @@ public class PlayerComponentSlinger : MonoBehaviour
         }
     }
 }
+
+//======================THIS IS THE START OF THE SLING
+
+/*  old component launch method
+SlungComponent.SetKinematic(false).AddForce(new Vector3(
+    Mathf.Cos(Mathf.Deg2Rad * _LaunchAngle) * (_LaunchForce * (PMover.isFacingRight ? 1 : -1)),
+    Mathf.Sin(Mathf.Deg2Rad * _LaunchAngle) * _LaunchForce,
+    0f)
+    + PMover.GetComponent<Rigidbody>().velocity,
+    ForceMode.Impulse);*/

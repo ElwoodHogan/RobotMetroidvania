@@ -9,6 +9,8 @@ public class DimensionSwitcher : SerializedMonoBehaviour
     public bool[,] Constraints;
     RigidbodyConstraints SavedConstraints;
 
+    [SerializeField] GameObject twoDVariant;
+
     [SerializeField] ColliderKind Col;
     enum ColliderKind
     {

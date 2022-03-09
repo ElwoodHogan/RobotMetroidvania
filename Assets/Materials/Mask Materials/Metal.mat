@@ -50,5 +50,5 @@ Material:
     - Vector3_d0354561fb8b47ffb53379a018db15f5: {r: 1, g: 1, b: 1, a: 0}
     - _Dimensional: {r: 1, g: 1, b: 0, a: 0}
     - _MainColor: {r: 1, g: 1, b: 1, a: 0}
-    - _SpherePos: {r: -121.05984, g: -29.409866, b: 0, a: 0}
+    - _SpherePos: {r: 18.771109, g: -34.76563, b: 0, a: 0}
   m_BuildTextureStacks: []
