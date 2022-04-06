@@ -14,7 +14,7 @@ public class RotationalStaircase : ActivatableParent
     {
         for (int i = 0; i < stairs.Count; i++)
         {
-            stairs[i].DOLocalRotate(OpenedRotation, ((float)i* stairDelay) + firstStairTime);
+            stairs[i].DOLocalRotate(OpenedRotation, stairDelay + firstStairTime).SetDelay((float)i * stairDelay);
         }
     }
 
@@ -22,7 +22,7 @@ public class RotationalStaircase : ActivatableParent
     {
         for (int i = 0; i < stairs.Count; i++)
         {
-            stairs[i].DOLocalRotate(ClosedRotation, ((float)i * stairDelay) + firstStairTime);
+            stairs[i].DOLocalRotate(ClosedRotation, firstStairTime);
         }
     }
 }
